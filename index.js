@@ -44,3 +44,15 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🌐 Máy chủ Web đã khởi động trên port ${PORT}`);
 });
+
+// --- Chạy 1 lần cho GitHub Actions ---
+if (process.argv.includes('--run-once')) {
+  console.log('🚀 Chạy bot ở chế độ manual (1 lần) cho GitHub Actions...');
+  runReport().then(() => {
+    console.log('✅ Hoàn thành 1 vòng chạy, thoát an toàn.');
+    process.exit(0);
+  }).catch((err) => {
+    console.error('❌ Lỗi:', err);
+    process.exit(1);
+  });
+}
